@@ -9,7 +9,10 @@ from audioldm.variational_autoencoder import AutoencoderKL
 class Tango:
     def __init__(self, name="declare-lab/tango", device="cuda:0"):
         
-        path = snapshot_download(repo_id=name)
+        if name == "local":
+            path = "/tmp/tango"
+        else:
+            path = snapshot_download(repo_id=name)
         
         vae_config = json.load(open("{}/vae_config.json".format(path)))
         stft_config = json.load(open("{}/stft_config.json".format(path)))
